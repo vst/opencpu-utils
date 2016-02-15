@@ -1,0 +1,75 @@
+#!/bin/bash
+
+## Defines the default base URL:
+BASE_URL=${BASE_URL:-"http://localhost:8000"}
+
+## Defines the default endpoint uri for the rmarkdown rendered:
+ENDPOINT=${ENDPOINT:-"/ocpu/library/rmarkdown/R/render"}
+
+## Defines the default R markdown file path:
+FILEPATH=${FILEPATH:-"input.Rmd"}
+
+## Defines the HTML output file name:
+HTMLNAME=${HTMLNAME:-"output.html"}
+
+## Defines the output file path:
+OUTPUTPATH=${OUTPUTPATH:-"/tmp/${HTMLNAME}"}
+
+## Defines the action:
+ACTION=${ACTION:-"echo Saved file under"}
+
+## Indicates if we are verbose:
+VERBOSE=${VERBOSE:-0}
+
+## Parse commandline arguments/options:
+while getopts ":u:i:h:o:bv" opt; do
+  case $opt in
+      u)
+          BASE_URL=$OPTARG
+          ;;
+      i)
+          FILEPATH=$OPTARG
+          ;;
+      h)
+          HTMLNAME=$OPTARG
+          ;;
+      o)
+          OUTPUTPATH=$OPTARG
+          ;;
+      b)
+          ACTION="open"
+          ;;
+      v)
+          VERBOSE=1
+          ;;
+      \?)
+          echo "Invalid option: -$OPTARG" >&2
+          exit 1
+          ;;
+  esac
+done
+
+## Defines a log function:
+function log {
+    test ${VERBOSE} -eq 1 && echo "$@" >&2
+}
+
+## Construct the URL:
+URL=${BASE_URL}${ENDPOINT}
+
+## Inform the user:
+log "URL         : ${URL}"
+log "FILE PATH   : ${FILEPATH}"
+log "OUTPUT NAME : ${HTMLNAME}"
+log "OUTPUT PATH : ${OUTPUTPATH}"
+
+## Reaching the endpoint:
+RESPONSE=$(curl -s -F "input=@${FILEPATH}" -F "output_file=\"${HTMLNAME}\"" ${URL})
+HTMLPATH=$(echo ${RESPONSE} | grep -oE "/ocpu/tmp/[a-z0-9]+/files/${HTMLNAME}")
+
+## Test the output:
+test -z ${HTMLPATH} && printf "Problem:\n\n${RESPONSE}\n" && exit 1
+
+## Download the result:
+curl -s -o ${OUTPUTPATH} ${BASE_URL}${HTMLPATH}
+${ACTION} ${OUTPUTPATH}
