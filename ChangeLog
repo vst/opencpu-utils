@@ -1,5 +1,12 @@
-VERS: 2016-02-15 ------- release/0.0.1
+VERS: 2016-02-15 ------- release/0.0.2
 
+    * 2016-02-15 49a1d54 [release] Version bumped to 0.0.2 (vst@vsthost.com)
+    * 2016-02-15 8689712 [chore] Renamed shell commands (vst@vsthost.com)
+    * 2016-02-15 e4e3391 [chore] Version bumped to 0.0.2-SNAPSHOT (vst@vsthost.com)
+
+VERS: 2016-02-15 36d0963 release/0.0.1 (vst@vsthost.com)
+
+    * 2016-02-15 8f6ae29 [release] Added Change Log file (vst@vsthost.com)
     * 2016-02-15 29e754f [release] Version bumped to 0.0.1 (vst@vsthost.com)
     * 2016-02-15 cca9d87 [feature] Added version command for the opencpu-utils suite (vst@vsthost.com)
     * 2016-02-15 9caa787 Initial commit (vst@vsthost.com)
