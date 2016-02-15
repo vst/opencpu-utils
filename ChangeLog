@@ -1,0 +1,5 @@
+VERS: 2016-02-15 ------- release/0.0.1
+
+    * 2016-02-15 29e754f [release] Version bumped to 0.0.1 (vst@vsthost.com)
+    * 2016-02-15 cca9d87 [feature] Added version command for the opencpu-utils suite (vst@vsthost.com)
+    * 2016-02-15 9caa787 Initial commit (vst@vsthost.com)
