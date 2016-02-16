@@ -1,5 +1,13 @@
-VERS: 2016-02-15 ------- release/0.0.2
+VERS: 2016-02-16 ------- release/0.0.3
 
+    * 2016-02-16 d5362f5 [release] Version bumped to 0.0.3 (vst@vsthost.com)
+    * 2016-02-16 4fa0170 [feature] Added a JSONRPC(ish) client (vst@vsthost.com)
+    * 2016-02-16 e9e0fb2 [chore] Fixed script permissions (vst@vsthost.com)
+    * 2016-02-15 513610c [chore] Development version bumped to 0.0.3-SNAPSHOT (vst@vsthost.com)
+
+VERS: 2016-02-15 d52c0f4 release/0.0.2 (vst@vsthost.com)
+
+    * 2016-02-15 bea540e [release] Change log updated (vst@vsthost.com)
     * 2016-02-15 49a1d54 [release] Version bumped to 0.0.2 (vst@vsthost.com)
     * 2016-02-15 8689712 [chore] Renamed shell commands (vst@vsthost.com)
     * 2016-02-15 e4e3391 [chore] Version bumped to 0.0.2-SNAPSHOT (vst@vsthost.com)
