@@ -1,0 +1,78 @@
+#!/bin/bash
+
+## Defines the default base URL:
+BASE_URL=${BASE_URL:-"http://localhost:8000"}
+
+## Defines the base endpoint URI:
+BASE_ENDPOINT=${BASE_ENDPOINT:-"ocpu"}
+
+## Defines the library:
+R_LIBRARY=${R_LIBRARY:-"base"}
+
+## Defines the function:
+R_FUNCTION=${R_FUNCTION:-"identity"}
+
+## Defines the function:
+R_ARGS=${R_ARGS:-""}
+
+## Defines the function:
+FORMAT=${FORMAT:-"json"}
+
+## Defines the function:
+R_FILE_ARGS=${R_FILE_ARGS:-""}
+
+## Indicates if we are verbose:
+VERBOSE=${VERBOSE:-0}
+
+## Parse commandline arguments/options:
+while getopts ":u:e:o:l:f:a:s:v" opt; do
+  case $opt in
+      u)
+          BASE_URL=$OPTARG
+          ;;
+      e)
+          BASE_ENDPOINT=$OPTARG
+          ;;
+      l)
+          R_LIBRARY=$OPTARG
+          ;;
+      f)
+          R_FUNCTION=$OPTARG
+          ;;
+      o)
+          FORMAT=$OPTARG
+          ;;
+      a)
+          R_ARGS="$R_ARGS -d $OPTARG"
+          ;;
+      s)
+          R_FILE_ARGS="$R_FILE_ARGS -F $OPTARG"
+          ;;
+      v)
+          VERBOSE=1
+          ;;
+      \?)
+          echo "Invalid option: -$OPTARG" >&2
+          exit 1
+          ;;
+  esac
+done
+
+## Defines a log function:
+function log {
+    test ${VERBOSE} -eq 1 && echo "$@" >&2
+}
+
+## Construct the URL:
+URL=${BASE_URL}/${BASE_ENDPOINT}/library/${R_LIBRARY}/R/${R_FUNCTION}/${FORMAT}
+
+## Construct the command:
+COMMAND="curl -s -X POST ${R_ARGS} ${R_FILE_ARGS} ${URL}"
+
+## Inform the user:
+log "URL  : ${URL}"
+log "ARGS : ${R_ARGS}"
+log "COMMAND : ${COMMAND}"
+
+## Reaching the endpoint:
+$COMMAND
